@@ -7,7 +7,10 @@
 <body>
     <header>
         This is Header 
+        @auth
         <a href="{{route('posts.create')}}" class="btn"> Create a Post</a>
+
+        @endauth
     </header>
 
     <div class="container">
