@@ -36,9 +36,19 @@ Route::get('/posts/create', function () {
 })->name('posts.create');
 
 // show
-Route::get('/posts/{id}', function ($id) {
+
+// Version one
+// Gerneral Rule ==> Route::get('/posts/{post:id}', function ($id) { 
+// Route::get('/posts/{id}', function ($id) {
     // dd($id);
-    $post = Post::findOrFail($id);
+//     $post = Post::findOrFail($id);
+//     return view("posts.show", ["post" => $post]);
+// });
+
+// Version Two
+
+Route::get('/posts/{post}', function (Post $post) {
+    // dd($id);
     return view("posts.show", ["post" => $post]);
 });
 
@@ -64,14 +74,14 @@ Route::post('/posts', function () {
 });
 
 // edit
-Route::get('/posts/{id}/edit', function ($id) {
-    $post = Post::find($id);
+Route::get('/posts/{post}/edit', function (Post $post) {
+    // $post = Post::find($id);
     return view("posts.edit", ["post" => $post]);
 })->name('posts.edit');
 
 
 // update
-Route::patch('/posts/{id}', function ($id) {
+Route::patch('/posts/{post}', function (Post $post) {
 
     request()->validate([
         'title'=>['required','min:3'],
@@ -79,7 +89,7 @@ Route::patch('/posts/{id}', function ($id) {
     ]);
 
  
-    $post = Post::findOrFail($id);
+    // $post = Post::findOrFail($id);
 
     // $post->title = $request->input('title');
     // $post->content = $request->input('content');
@@ -95,8 +105,8 @@ Route::patch('/posts/{id}', function ($id) {
 })->name('posts.update');
 
 // delete
-Route::delete('/posts/{id}', function ($id) {
-    $post =  Post::findOrFail($id);
+Route::delete('/posts/{post}', function (Post $post) {
+    // $post =  Post::findOrFail($id);
     $post->delete();
     return redirect("/posts/");
 
