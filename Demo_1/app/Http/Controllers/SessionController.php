@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 
 class SessionController extends Controller
 {
@@ -17,6 +19,12 @@ class SessionController extends Controller
         // dd("store logged user");
         return request()->all();
         // return view("auth.login");
+    }
+    public function destroy()
+    {
+       Auth::logout();
+       return redirect("/posts");
+
     }
 
 }

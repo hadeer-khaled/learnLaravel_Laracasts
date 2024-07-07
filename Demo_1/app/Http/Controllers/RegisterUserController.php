@@ -4,7 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
-
+use Illuminate\Validation\Rules\Password;
+use Illuminate\Support\Facades\Auth;
 class RegisterUserController extends Controller
 {
     /**
@@ -29,9 +30,21 @@ class RegisterUserController extends Controller
      */
     public function store(Request $request)
     {
-    //    dd("store user");
+        // dd("store user");
+        // return $request->all();
+        $validatedData = request()->validate([
+                "name"=> ["required"],
+                "email"=> ["required", "email"],
+                //'confirmed' ==? search for password_confirmation field and make sure the match the password field
+                "password"=> ["required", Password::min(5) , 'confirmed'], 
 
-        return $request->all();
+        ]);
+
+        $user = User::create($validatedData);
+        
+        Auth::login($user);
+
+        return redirect("/posts");
     }
 
     /**
@@ -64,5 +77,6 @@ class RegisterUserController extends Controller
     public function destroy(User $user)
     {
         //
+
     }
 }

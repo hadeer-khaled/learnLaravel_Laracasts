@@ -9,8 +9,16 @@
         This is Header 
         @auth
         <a href="{{route('posts.create')}}" class="btn"> Create a Post</a>
+        <form method="POST" action="/logout">
+            @csrf
+            <button type="submit"> Logout </button>
+        </form>
 
         @endauth
+        @guest
+            <a href="{{route('regiter.create')}}" class="btn"> Register</a>
+            <a href="{{route('login.create')}}" class="btn"> Login</a>
+        @endguest
     </header>
 
     <div class="container">
