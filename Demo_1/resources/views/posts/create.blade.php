@@ -20,6 +20,16 @@
     <div class="space-y-12">
       <div class="border-b border-gray-900/10 pb-12">
         <h2 class="text-base font-semibold leading-7 text-gray-900">Create a post</h2>
+            
+            @if($errors->any())
+                  <ul style="color: red;">
+                      @foreach($errors->all() as $error)
+                          <li>
+                            {{$error}}
+                          </li>
+                      @endforeach
+                  </ul>
+            @endif
   
         <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
           <div class="sm:col-span-4">
@@ -29,6 +39,11 @@
                 <input type="text" name="title" id="title"  class="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6" placeholder="janesmith">
               </div>
             </div>
+
+            @error('title')
+              <p style="color: red;">  {{$message}} </p>
+            @enderror
+
           </div>
   
           <div class="col-span-full">

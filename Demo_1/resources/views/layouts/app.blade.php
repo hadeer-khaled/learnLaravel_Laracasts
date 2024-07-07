@@ -7,6 +7,7 @@
 <body>
     <header>
         This is Header 
+        <a href="{{route('posts.create')}}" class="btn"> Create a Post</a>
     </header>
 
     <div class="container">

@@ -17,18 +17,22 @@ use App\Models\Post;
 Route::get('/', function () {
     return view('welcome');
 });
+
 Route::get('/posts', function () {
     // dd('test');
     // return view("posts.index");
     // $posts = Post::all();
     $posts = Post::latest()->get(); //order by the created at in asc 
-    return $posts ;
+    // return $posts ;
+    return view('posts.index' , ["posts"=>$posts]);
 });
 
 Route::get('/posts/create', function () {
     // dd('test');
     return view("posts.create");
-});
+})->name('posts.create');
+
+
 Route::get('/posts/{id}', function ($id) {
     // $post = Post::find($id);
     // return view("posts.show", ["posts" => $post]);
@@ -41,6 +45,12 @@ Route::post('/posts', function () {
     // return request("title");
     // return request()->all();
 
+
+    request()->validate([
+            'title'=>['required', 'min:3'],
+            'content'=>['required']
+    ]);
+    
     Post::create([
         'title'=>request('title'),
         'content'=>request('content')
