@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\PostController;
 use App\Models\Post;
 /*
 |--------------------------------------------------------------------------
@@ -18,96 +18,30 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+// Method 1
+// Route::get("/posts" , [PostController::class , 'index'])->name('posts.index');
+// Route::get("/posts/create" , [PostController::class , 'create'])->name('posts.create');
+// Route::get("/posts/{post}" , [PostController::class , 'show'])->name('posts.show');
+// Route::post("/posts" , [PostController::class , 'store'])->name('posts.store');
+// Route::get('/posts/{post}/edit', [PostController::class , 'edit'] )->name('posts.edit');
+// Route::patch('/posts/{post}',  [PostController::class , 'update'])->name('posts.update');
+// Route::delete('/posts/{post}', [PostController::class , 'destroy'])->name('posts.delete');
 
-// index
-Route::get('/posts', function () {
-    // dd('test');
-    // return view("posts.index");
-    // $posts = Post::all();
-    $posts = Post::latest()->get(); //order by the created at in asc 
-    // return $posts ;
-    return view('posts.index' , ["posts"=>$posts]);
-});
-
-// create
-Route::get('/posts/create', function () {
-    // dd('test');
-    return view("posts.create");
-})->name('posts.create');
-
-// show
-
-// Version one
-// Gerneral Rule ==> Route::get('/posts/{post:id}', function ($id) { 
-// Route::get('/posts/{id}', function ($id) {
-    // dd($id);
-//     $post = Post::findOrFail($id);
-//     return view("posts.show", ["post" => $post]);
+// Method 2
+// Route::controller(PostController::class)->group(function(){
+//     Route::get("/posts" , [PostController::class , 'index'])->name('posts.index');
+//     Route::get("/posts/create" , [PostController::class , 'create'])->name('posts.create');
+//     Route::get("/posts/{post}" , [PostController::class , 'show'])->name('posts.show');
+//     Route::post("/posts" , [PostController::class , 'store'])->name('posts.store');
+//     Route::get('/posts/{post}/edit', [PostController::class , 'edit'] )->name('posts.edit');
+//     Route::patch('/posts/{post}',  [PostController::class , 'update'])->name('posts.update');
+//     Route::delete('/posts/{post}', [PostController::class , 'destroy'])->name('posts.delete');
 // });
 
-// Version Two
+//Method 3
+Route::Resource("posts" , PostController::class);
 
-Route::get('/posts/{post}', function (Post $post) {
-    // dd($id);
-    return view("posts.show", ["post" => $post]);
-});
-
-// store
-Route::post('/posts', function () {
-    // dd('test');
-    // return "Post submitted succesfully ";
-    // return request("title");
-    // return request()->all();
-
-
-    request()->validate([
-            'title'=>['required', 'min:3'],
-            'content'=>['required']
-    ]);
-
-    Post::create([
-        'title'=>request('title'),
-        'content'=>request('content')
-    ]);
-
-    return redirect("/posts");
-});
-
-// edit
-Route::get('/posts/{post}/edit', function (Post $post) {
-    // $post = Post::find($id);
-    return view("posts.edit", ["post" => $post]);
-})->name('posts.edit');
-
-
-// update
-Route::patch('/posts/{post}', function (Post $post) {
-
-    request()->validate([
-        'title'=>['required','min:3'],
-        'content'=>['required']
-    ]);
-
- 
-    // $post = Post::findOrFail($id);
-
-    // $post->title = $request->input('title');
-    // $post->content = $request->input('content');
-    // $post->save();
-
-    $post->update([
-        'title'=>request('title'),
-        'content'=>request('content'),
-    ]);
-
-    return redirect("/posts/".$id);
-
-})->name('posts.update');
-
-// delete
-Route::delete('/posts/{post}', function (Post $post) {
-    // $post =  Post::findOrFail($id);
-    $post->delete();
-    return redirect("/posts/");
-
-})->name('posts.delete');
+// Route::Resource("posts" , PostController::class , [
+    // "only"=>['index' , 'show']
+    // "except"=>['index' , 'show']
+// ]);

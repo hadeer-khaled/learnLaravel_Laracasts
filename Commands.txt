@@ -7,3 +7,8 @@
  * php artisan make:model ModelName -a
 	 - (- a = all) will create Model, Factory, Controller, Seeder ,Resource, Request, Migration, Policy
 
+----------------------------------------------------------------------------------------------------------------
+
+ * php artisan route:list
+
+----------------------------------------------------------------------------------------------------------------
