@@ -1,0 +1,9 @@
+ * php artisan make:resource PostResource
+
+ * php artisan make:request PostRequest
+
+ * php artisan make:controller PostController
+ 
+ * php artisan make:model ModelName -a
+	 - (- a = all) will create Model, Factory, Controller, Seeder ,Resource, Request, Migration, Policy
+

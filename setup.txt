@@ -1,0 +1,5 @@
+- install wamp (php , phpMyAdmin)
+- install sql server
+- install composer
+- composer create-project laravel/laravel example-app
+- setup data base in .env and config/database.php
