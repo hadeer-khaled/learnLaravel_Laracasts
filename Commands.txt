@@ -1,14 +1,17 @@
+ * composer create-project laravel/laravel example-app
+
+----------------------------------------------------------------------------------------------------------------
  * php artisan make:resource PostResource
 
  * php artisan make:request PostRequest
 
- * php artisan make:controller PostController
+ * php artisan make:controller PostController --model=Post
  
  * php artisan make:model ModelName -a
 	 - (- a = all) will create Model, Factory, Controller, Seeder ,Resource, Request, Migration, Policy
 
 ----------------------------------------------------------------------------------------------------------------
 
- * php artisan route:list
+ * php artisan route:list --except-vendor
 
 ----------------------------------------------------------------------------------------------------------------

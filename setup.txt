@@ -1,5 +1,21 @@
 - install wamp (php , phpMyAdmin)
+
 - install sql server
+
 - install composer
+
 - composer create-project laravel/laravel example-app
+
 - setup data base in .env and config/database.php
+
+- to solve :  Syntax error or access violation: 1071 Specified key was too long; max key length is 1000 bytes (Connection: mysql, SQL: alter table `users` add unique `users_email_unique`(`email`))
+
+	Open app/Providers/AppServiceProvider.php and add the following code inside the boot method:
+
+	use Illuminate\Support\Facades\Schema;
+
+	public function boot()
+	{
+    		Schema::defaultStringLength(191);
+	}
+
