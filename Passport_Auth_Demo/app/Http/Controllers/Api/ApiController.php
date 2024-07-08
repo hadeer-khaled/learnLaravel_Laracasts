@@ -65,10 +65,31 @@ class ApiController extends Controller
 
     // GET
     public function profile (Request $request){
+            $user = Auth::user();
 
+            return response()->json([
+                "status"=>200,
+                "message"=>"Profile Information",
+                "dats"=> $user
+            ]);
     }
     // GET
     public function logout (Request $request){
+        
+        $user = Auth::user();
 
+        if ($user) {
+            $user->token()->revoke();
+    
+            return response()->json([
+                'status' => 200,
+                'message' => 'User logged out successfully',
+            ]);
+        }
+    
+        return response()->json([
+            'status' => 401,
+            'message' => 'User not authenticated',
+        ], 401);
     }
 }
