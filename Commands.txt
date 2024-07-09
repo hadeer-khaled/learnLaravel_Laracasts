@@ -6,6 +6,8 @@
  * php artisan make:request PostRequest
 
  * php artisan make:controller PostController --model=Post
+
+ * php artisan make:controller PostController --model=Post --api
  
  * php artisan make:model ModelName -a
 	 - (- a = all) will create Model, Factory, Controller, Seeder ,Resource, Request, Migration, Policy
@@ -15,3 +17,10 @@
  * php artisan route:list --except-vendor
 
 ----------------------------------------------------------------------------------------------------------------
+* php artisan make:migration add_role_to_users_table --table=users
+* php artisan migrate
+--------------------------------------------------------------------------------------------------------------
+* php artisan make:factory UserFactory --model=User
+--------------------------------------------------------------------------------------------------------------
+* php artisan make:seeder UserSeeder
+--------------------------------------------------------------------------------------------------------------

@@ -9,11 +9,13 @@ class Post extends Model
 {
     use HasFactory;
 
+    protected $fillable = ["title" , "content" , "user_id"];
+
     public function comments(){
-        $this->hasMany(Comment::class);
+        return  $this->hasMany(Comment::class);
     }
 
     public function user(){
-        $this->belongTo(User::class);
+        return   $this->belongsTo(User::class);
     }
 }
