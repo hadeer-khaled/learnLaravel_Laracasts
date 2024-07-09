@@ -32,9 +32,13 @@ Route::group(["middleware" => ["auth:api"]],
                 Route::get("/logout" , [ApiController::class , "logout"]);
 
                 Route::apiResource("/posts" , PostController::class);
-                Route::apiResource("/users" , UserController::class)->middleware('admin');
+                // Route::apiResource("/users" , UserController::class)->middleware('admin');
                 // Route::group(['middleware' => ['admin']], function () {
                 //     Route::apiResource("/users", UserController::class);
                 // });
+                Route::get('/users', [UserController::class, 'index'])->middleware('admin');
+                Route::put('/users/{user}', [UserController::class, 'update']);
+                Route::delete('/users/{user}', [UserController::class, 'destroy'])->middleware('admin');
+
             });
 
