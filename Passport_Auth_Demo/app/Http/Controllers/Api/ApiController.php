@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 use Illuminate\Support\Facades\Auth;
-
+use App\Utils\PassportHelpers;
 use App\Models\User;
 
 class ApiController extends Controller
@@ -26,7 +26,7 @@ class ApiController extends Controller
         return response()->json([
             "status"=>200,
             "message"=>"user registered successfully",
-            "date"=>$user
+            "data"=>$user
         ]);
     }
 
@@ -42,13 +42,17 @@ class ApiController extends Controller
 
         if($loginStatus){
             $user = Auth::user();
-            $token = $user->createToken('loginToken')->accessToken ;
-
+            // dd($request->password);
+            $tokens = PassportHelpers::generateTokens( $request->email,  $request->password);
+            $user["access_token"] = $tokens["access_token"];
+            $user["refresh_token"] = $tokens["refresh_token"];
+            // $accessToken = $user->createToken('loginToken')->accessToken ;
             return response()->json([
                 "status"=>200,
                 "message"=>"user logged in successfully",
-                "date"=>$user,
-                "token"=>$token
+                "data"=>$user,
+                // "accessToken"=>$accessToken
+                // "tokens"=>$tokens
             ],200);
         }
 
@@ -67,7 +71,7 @@ class ApiController extends Controller
             return response()->json([
                 "status"=>200,
                 "message"=>"Profile Information",
-                "dats"=> $user
+                "data"=> $user
             ]);
     }
     // GET
@@ -88,5 +92,15 @@ class ApiController extends Controller
             'status' => 401,
             'message' => 'User not authenticated',
         ], 401);
+    }
+
+    public function getRefreshToken(Request $request){
+        $tokens = PassportHelpers::refreshToken( $request->refresh_token);
+        return response()->json([
+            "status"=>200,
+            "message"=>"Token refreshed successfully",
+            "data"=> $tokens
+        ]);
+      
     }
 }

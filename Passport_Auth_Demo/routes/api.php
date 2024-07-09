@@ -24,12 +24,13 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 // Open Routes
 Route::post("/register" , [ApiController::class , "register"]);
 Route::post("/login" , [ApiController::class , "login"]);
-
+Route::get("/refresh-token" , [ApiController::class , "getRefreshToken"]);
 // Protected Routes
 Route::group(["middleware" => ["auth:api"]],
             function(){
                 Route::get("/profile" , [ApiController::class , "profile"]);
                 Route::get("/logout" , [ApiController::class , "logout"]);
+
 
                 Route::apiResource("/posts" , PostController::class);
                 // Route::apiResource("/users" , UserController::class)->middleware('admin');

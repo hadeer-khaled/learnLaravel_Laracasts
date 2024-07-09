@@ -18,6 +18,6 @@ class isAdmin
         if (auth()->user() && auth()->user()->role === 'admin') {
             return $next($request);
         }
-        return response()->json(['error' => 'UnAuthorized'], 401 );
+        return response()->json(['error' => 'unauthorized'], 401 );
      }
 }
