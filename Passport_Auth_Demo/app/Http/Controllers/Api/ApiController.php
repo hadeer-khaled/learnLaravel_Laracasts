@@ -44,15 +44,15 @@ class ApiController extends Controller
             $user = Auth::user();
             // dd($request->password);
             $tokens = PassportHelpers::generateTokens( $request->email,  $request->password);
-            $user["access_token"] = $tokens["access_token"];
-            $user["refresh_token"] = $tokens["refresh_token"];
+            // $user["access_token"] = $tokens["access_token"];
+            // $user["refresh_token"] = $tokens["refresh_token"];
             // $accessToken = $user->createToken('loginToken')->accessToken ;
             return response()->json([
                 "status"=>200,
                 "message"=>"user logged in successfully",
                 "data"=>$user,
                 // "accessToken"=>$accessToken
-                // "tokens"=>$tokens
+                "tokens"=>$tokens
             ],200);
         }
 

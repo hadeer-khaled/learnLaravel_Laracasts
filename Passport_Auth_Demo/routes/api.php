@@ -25,6 +25,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::post("/register" , [ApiController::class , "register"]);
 Route::post("/login" , [ApiController::class , "login"]);
 Route::get("/refresh-token" , [ApiController::class , "getRefreshToken"]);
+
+
 // Protected Routes
 Route::group(["middleware" => ["auth:api"]],
             function(){
