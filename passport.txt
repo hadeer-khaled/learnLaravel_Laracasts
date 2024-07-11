@@ -1,3 +1,0 @@
-composer require Laravel/passport
-
-php artisan migrate

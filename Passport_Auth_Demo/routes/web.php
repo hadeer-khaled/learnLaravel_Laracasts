@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ResetPasswordController;
+use App\Http\Controllers\PermissionController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -22,3 +24,5 @@ Route::get('/forget-password', [ResetPasswordController::class , "forgetPassword
 Route::post('/send-reset-password-link', [ResetPasswordController::class , "sendResetPasswordLink"])->name('password.send.reset');
 Route::get('/reset-password/{token}',  [ResetPasswordController::class , "ResetPassword"])->name('password.reset');
 Route::post('/reset-password',  [ResetPasswordController::class , "ResetPasswordPost"])->name('password.reset.post');
+
+Route::resource('/permissions', PermissionController::class);
