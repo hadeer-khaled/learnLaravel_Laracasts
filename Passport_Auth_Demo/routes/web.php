@@ -35,7 +35,7 @@ Route::group(['middleware'=>['auth', 'role:super_admin|admin']], function(){
     
     Route::resource('/permissions', PermissionController::class);
     Route::resource('/roles', RoleController::class);
-    Route::get('/roles/{roleId}/give-permission',[ RoleController::class , 'AddPermissionToRole'] );
+    Route::get('/roles/{roleId}/give-permission',[ RoleController::class , 'AddPermissionToRole'] )->Middleware('permission:add permission to role');
     Route::put('/roles/{roleId}/store-permission',[ RoleController::class , 'storePermissionToRole'] );
     
     Route::resource('/users', UserController::class);
