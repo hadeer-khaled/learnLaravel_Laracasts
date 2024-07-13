@@ -8,17 +8,17 @@
             <div class="card">
                 <div class="card-header">
                     <h4>
-                        Edit a Permission
-                        <a href="{{ url('/permissions') }}" class="btn btn-danger  float-end">Back</a>
+                        Edit a Role
+                        <a href="{{ url('/roles') }}" class="btn btn-danger  float-end">Back</a>
                     </h4>
                 </div>
                 <div class="card-body">
-                    <form method="POST" action="{{ url('/permissions/'.$permission->id) }}">
+                    <form method="POST" action="{{ url('/roles/'.$role->id) }}">
                         @csrf
                         @method('PUT')
                         <div class="mb-3">
                           <label for="name" class="form-label">Name</label>
-                          <input type="text" name="name" class="form-control" id="name" value="{{$permission->name}}">
+                          <input type="text" name="name" class="form-control" id="name" value="{{$role->name}}">
                         </div>
                         @error('name')
                             <p style="color: red;">  {{$message}} </p>
