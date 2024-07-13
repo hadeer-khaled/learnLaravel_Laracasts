@@ -60,9 +60,13 @@ class UserController extends Controller
     {
         //
     }
-    public function edit(Request $request)
+    public function edit(User  $user)
     {
-        //
+        $roles = Role::get();
+        
+        $userRoles = $user->getRoleNames()->toArray();
+        // dd( $userRoles);
+        return view("roles-permissions.users.edit", ['user'=> $user , 'roles' => $roles , 'userRoles' => $userRoles]);
     }
 
     /**
@@ -70,20 +74,24 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user)
     {
+        // dd($user);
         $validatedData = $request->validate([
-            "name"=>['required'],
-            "email"=>['required']
+            "name"=>['required','string'],
+            'email'=>['required', 'string' , 'unique:users,email,'.$user->id],
+            "roles"=>['required', 'array'],
         ]);
+        // dd($validatedData);
+        
 
-        $user->update($validatedData);
-
-        $user->refresh();
-
-        return response()->json([
-            "status" => 200,
-            "message" => "User updated successfully",
-            "data" => new UserResource($user)
+        $user->update([
+            'name'=>$request->name,
+            'email'=>$request->email,
         ]);
+        $user->syncRoles($request->roles);
+
+        
+        return redirect('/users')->with("status", "user is updated successfully");
+
 
 
     }
@@ -94,11 +102,7 @@ class UserController extends Controller
     public function destroy(User $user)
     {
         $user->delete();
-        
-        return response()->json([
-            "status" => 200,
-            "message" => "User deleted successfully",
-        ]);
+        return redirect("/users");
 
     }
 }
