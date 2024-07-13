@@ -7,6 +7,10 @@ use App\Models\User;
 use Illuminate\Http\Request;
 
 use App\Http\Resources\UserResource;
+
+use Spatie\Permission\Models\Role;
+use Illuminate\Support\Facades\Hash;
+
 class UserController extends Controller
 {
     /**
@@ -14,14 +18,14 @@ class UserController extends Controller
      */
     public function index()
     {
-        return response()->json([
-           "status"=>200,
-           "data" => UserResource::collection(User::all())
-        ]);
+       
+        $users = User::get();
+        return view("roles-permissions.users.index", [  "users" =>  $users ]);
     }
     public function create(Request $request)
     {
-        //
+        $roles = Role::get();
+        return view("roles-permissions.users.create" , ['roles' => $roles]);
     }
 
     /**
@@ -29,7 +33,24 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name'=>['required', 'string' ],
+            'email'=>['required', 'string' , 'unique:users,email'],
+            'password'=>['required'],
+            'roles'=>['required'],
+        ]);
+        $user = User::create([
+            'name'=>$request->name,
+            'email'=>$request->email,
+            'password'=>Hash::make($request->password),
+
+        ]);
+
+        $user->syncRoles($request->roles);
+
+
+
+        return redirect('/users')->with("status", "user is created successfully");
     }
 
     /**
