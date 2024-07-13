@@ -9,6 +9,10 @@ use Illuminate\Support\Facades\DB;
 
 class RoleController extends Controller
 {
+    public function __construct(){
+        $this->middleware("permission:edit role" , ['only'=>['edit' ,'update' ]]);
+        $this->middleware("permission:delete role" , ['only'=>['destroy']]);
+    }
     public function index(){
 
          $roles = Role::get();
