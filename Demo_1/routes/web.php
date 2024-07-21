@@ -1,11 +1,11 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Arr;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\RegisterUserController;
 use App\Http\Controllers\SessionController;
 use App\Models\Post;
+use App\Models\Job;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -20,6 +20,24 @@ use App\Models\Post;
 Route::get('/', function () {
     return view('welcome');
 });
+
+// ------------------------------------- Jobs ----------------------------------- \\
+
+Route::get('/', function () {
+    return view('home');
+});
+
+Route::get('/jobs', function () {
+    $jobs = Job::all();
+    return view('jobs' , ["jobs"=> $jobs]);
+});
+
+Route::get('/job/{id}', function ($id) {
+    $job = Job::find($id);
+    return view('job', ['job'=>$job]);
+});
+
+// ---------------------------------------------------------------- \\
 
 // Method 1
 // Route::get("/posts" , [PostController::class , 'index'])->name('posts.index');
@@ -58,54 +76,3 @@ Route::get('/login' , [SessionController::class , 'create'])->name("login.create
 Route::post('/login' , [SessionController::class , 'store'])->name("login.store");
 Route::post('/logout' , [SessionController::class , 'destroy'])->name("logout");
 
-
-// ------------------------------------- Jobs ----------------------------------- \\
-
-Route::get('/', function () {
-    return view('home');
-});
-Route::get('/jobs', function () {
-    $jobs = [
-        [
-            "id"=>1,
-            "title"=> "Full Stack Developer",
-            "salary"=> 25000
-        ],
-        [
-            "id"=>2,
-            "title"=> "Front End Developer",
-            "salary"=> 20000
-        ],
-        [
-            "id"=>3,
-            "title"=> "Back End Developer",
-            "salary"=> 20000
-        ],
-    ];
-    return view('jobs' , ["jobs"=> $jobs]);
-});
-Route::get('/job/{id}', function ($id) {
-    $jobs = [
-        [
-            "id"=>1,
-            "title"=> "Full Stack Developer",
-            "salary"=> 25000
-        ],
-        [
-            "id"=>2,
-            "title"=> "Front End Developer",
-            "salary"=> 20000
-        ],
-        [
-            "id"=>3,
-            "title"=> "Back End Developer",
-            "salary"=> 20000
-        ],
-    ];
-    $job = Arr::first($jobs , fn($job)=>$job['id'] == $id);
-    return view('job', ['job'=>$job]);
-});
-Route::get('/contact', function () {
-    return view('contact');
-});
-// ---------------------------------------------------------------- \\
