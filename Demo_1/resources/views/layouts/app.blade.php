@@ -3,6 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <title>@yield('page_title')</title>
+    <link rel="stylesheet" href="{{asset('css/bootstrap.css')}}">
+    <link rel="stylesheet" href="{{asset('css/bootstrap.min.css')}}">
+
 </head>
 <body>
     <header>
@@ -25,9 +28,9 @@
         @yield('content')
     </div>
 
-    <footer>
-        This is Footer
-    </footer>
+    <x-footer />
 
 </body>
+    <script src="{{asset('js/bootstrap.js')}}"></script>
+    <script src="{{asset('js/bootstrap.min.js')}}"></script>
 </html>
