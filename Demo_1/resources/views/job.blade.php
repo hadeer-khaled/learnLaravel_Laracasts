@@ -1,6 +1,11 @@
 @extends('layouts.app')
 @section('content')
-@foreach ($job as $key=>$value)
+
+{{-- @foreach ($job as $key=>$value)
         <li> {{$key}} => {{$value}} </li>
-@endforeach
+@endforeach --}}
+
+<li>ID: {{$job->id}}</li>
+<li>Title: {{$job->title}}</li>
+<li>Salart: {{$job->salary}}</li>
 @endsection
