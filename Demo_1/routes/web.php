@@ -56,3 +56,16 @@ Route::post('/register' ,  [RegisterUserController::class , 'store'])->name("reg
 Route::get('/login' , [SessionController::class , 'create'])->name("login.create");
 Route::post('/login' , [SessionController::class , 'store'])->name("login.store");
 Route::post('/logout' , [SessionController::class , 'destroy'])->name("logout");
+
+
+// 
+
+Route::get('/', function () {
+    return view('home');
+});
+Route::get('/about', function () {
+    return view('about');
+});
+Route::get('/contact', function () {
+    return view('contact');
+});
