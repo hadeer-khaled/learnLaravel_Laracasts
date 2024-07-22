@@ -30,7 +30,8 @@ Route::get('/', function () {
 Route::get('/jobs', function () {
     // $jobs = Job::all();
     // $jobs = Job::factory(5)->create(); 
-    $jobs = Job::with('employer')->get();
+    // $jobs = Job::with('employer')->get();
+    $jobs = Job::with('employer')->paginate(2);
 
     // dd($jobs);
     
