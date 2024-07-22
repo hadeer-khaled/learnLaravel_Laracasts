@@ -29,7 +29,6 @@ Route::get('/', function () {
 
 Route::get('/jobs', function () {
     $jobs = Job::all();
-    // $jobs  = Job::factory(3)->create();   
     return view('jobs' , ["jobs"=> $jobs]);
 });
 
