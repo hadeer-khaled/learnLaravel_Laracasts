@@ -29,7 +29,11 @@ Route::get('/', function () {
 
 Route::get('/jobs', function () {
     // $jobs = Job::all();
-    $jobs = Job::factory(5)->create();   
+    // $jobs = Job::factory(5)->create(); 
+    $jobs = Job::with('employer')->get();
+
+    // dd($jobs);
+    
     return view('jobs' , ["jobs"=> $jobs]);
 });
 
