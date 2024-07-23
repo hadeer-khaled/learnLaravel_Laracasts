@@ -3,7 +3,9 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\RegisterUserController;
+use App\Http\Controllers\RegisterationController;
 use App\Http\Controllers\SessionController;
+use App\Http\Controllers\LoginController;
 use App\Models\Post;
 use App\Models\Job;
 /*
@@ -43,7 +45,16 @@ Route::get('/job/{id}', function ($id) {
     return view('job', ['job'=>$job]);
 });
 
-// ---------------------------------------------------------------- \\
+// ------------------------------------- Registeration ----------------------------------- \\
+Route::get("/register" , [RegisterationController::class , 'create'])->name('register.create');
+Route::post("/register" , [RegisterationController::class , 'create'])->name('register.store');
+
+
+Route::get("/login" , [LoginController::class , 'create'])->name('login.create');
+Route::post("/login" , [LoginController::class , 'create'])->name('login.store');
+
+// ----------------------------------------------------------------------------------------- \\
+
 
 // Method 1
 // Route::get("/posts" , [PostController::class , 'index'])->name('posts.index');
@@ -75,10 +86,10 @@ Route::Resource("posts" , PostController::class);
 
 
 //Auth 
-Route::get('/register' ,  [RegisterUserController::class , 'create'])->name("regiter.create");
-Route::post('/register' ,  [RegisterUserController::class , 'store'])->name("regiter.store");
+// Route::get('/register' ,  [RegisterUserController::class , 'create'])->name("regiter.create");
+// Route::post('/register' ,  [RegisterUserController::class , 'store'])->name("regiter.store");
 
-Route::get('/login' , [SessionController::class , 'create'])->name("login.create");
-Route::post('/login' , [SessionController::class , 'store'])->name("login.store");
-Route::post('/logout' , [SessionController::class , 'destroy'])->name("logout");
+// Route::get('/login' , [SessionController::class , 'create'])->name("login.create");
+// Route::post('/login' , [SessionController::class , 'store'])->name("login.store");
+// Route::post('/logout' , [SessionController::class , 'destroy'])->name("logout");
 
