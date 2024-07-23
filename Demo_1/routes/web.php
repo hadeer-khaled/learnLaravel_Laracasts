@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\JobController;
 use App\Http\Controllers\RegisterUserController;
 use App\Http\Controllers\RegisterationController;
 use App\Http\Controllers\SessionController;
@@ -20,30 +21,32 @@ use App\Models\Job;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('home');
 });
 
 // ------------------------------------- Jobs ----------------------------------- \\
 
-Route::get('/', function () {
-    return view('home');
-});
+// Route::get('/', function () {
+//     return view('home');
+// });
 
-Route::get('/jobs', function () {
-    // $jobs = Job::all();
-    // $jobs = Job::factory(5)->create(); 
-    // $jobs = Job::with('employer')->get();
-    $jobs = Job::with('employer')->paginate(2);
+// Route::get('/jobs', function () {
+//     // $jobs = Job::all();
+//     // $jobs = Job::factory(5)->create(); 
+//     // $jobs = Job::with('employer')->get();
+//     $jobs = Job::with('employer')->paginate(2);
 
-    // dd($jobs);
+//     // dd($jobs);
     
-    return view('jobs' , ["jobs"=> $jobs]);
-});
+//     return view('jobs' , ["jobs"=> $jobs]);
+// });
 
-Route::get('/job/{id}', function ($id) {
-    $job = Job::find($id);
-    return view('job', ['job'=>$job]);
-});
+// Route::get('/job/{id}', function ($id) {
+//     $job = Job::find($id);
+//     return view('job', ['job'=>$job]);
+// });
+
+Route::Resource("jobs" , JobController::class);
 
 // ------------------------------------- Registeration ----------------------------------- \\
 Route::get("/register" , [RegisterationController::class , 'create'])->name('register.create');
