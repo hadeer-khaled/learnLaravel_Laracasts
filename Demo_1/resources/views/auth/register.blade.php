@@ -20,17 +20,6 @@
     <div class="space-y-12">
       <div class="border-b border-gray-900/10 pb-12">
         <h2 class="text-base font-semibold leading-7 text-gray-900">Register</h2>
-            
-            @if($errors->any())
-                  <ul style="color: red;">
-                      @foreach($errors->all() as $error)
-                          <li>
-                            {{$error}}
-                          </li>
-                      @endforeach
-                  </ul>
-            @endif
-  
         <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
           <div class="sm:col-span-4">
             <label for="name" class="block text-sm font-medium leading-6 text-gray-900">name</label>

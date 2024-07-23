@@ -47,11 +47,12 @@ Route::get('/job/{id}', function ($id) {
 
 // ------------------------------------- Registeration ----------------------------------- \\
 Route::get("/register" , [RegisterationController::class , 'create'])->name('register.create');
-Route::post("/register" , [RegisterationController::class , 'create'])->name('register.store');
+Route::post("/register" , [RegisterationController::class , 'store'])->name('register.store');
 
 
 Route::get("/login" , [LoginController::class , 'create'])->name('login.create');
-Route::post("/login" , [LoginController::class , 'create'])->name('login.store');
+Route::post("/login" , [LoginController::class , 'store'])->name('login.store');
+Route::post("/logout" , [LoginController::class , 'destroy'])->name('login.destroy');
 
 // ----------------------------------------------------------------------------------------- \\
 
