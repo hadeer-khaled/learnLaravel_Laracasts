@@ -46,6 +46,12 @@ class JobController extends Controller
 
     public function edit(Job $job)
     {
+        if(Auth::guest()){
+            return redirect("/jobs");
+        }
+        if($job->employer->user_id !== strval(Auth::id())){
+            abort(403);
+        }
         return view("jobs.edit", ["job" => $job]);
 
     }
