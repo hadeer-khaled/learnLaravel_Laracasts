@@ -66,9 +66,25 @@ Route::get("/login" , [LoginController::class , 'create'])->name('login');
 Route::post("/login" , [LoginController::class , 'store'])->name('login.store');
 Route::post("/logout" , [LoginController::class , 'destroy'])->name('login.destroy');
 
-// ----------------------------------------------------------------------------------------- \\
+// -----------------------------------------Queue and jobs------------------------------------------------ \\
 
 
+Route::get('/dipatch-queued-closure', function () {
+    dispatch(function () {
+        Log::info('Hello from queue');
+    });
+    
+    return "Dispatching a Queued Closure is done";
+});
+
+Route::get('/dipatch-job', function () {
+
+    $job =  App\Models\Job::find(1);    
+    App\Jobs\TranslatePostedJob::dispatch($job);
+    
+    return "Dispatching a job is done";
+});
+// ---------------------------------------------------------------------------------------------- \\
 // Method 1
 // Route::get("/posts" , [PostController::class , 'index'])->name('posts.index');
 // Route::get("/posts/create" , [PostController::class , 'create'])->name('posts.create');
