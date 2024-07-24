@@ -27,8 +27,8 @@ class AppServiceProvider extends ServiceProvider
         Schema::defaultStringLength(191);
         Model::preventLazyLoading();
 
-        Gate::define('edit-job', function (User $user, Job $job) {
-            return $job->employer->user_id === strval($user->id);
-        });
+        // Gate::define('edit-job', function (User $user, Job $job) {
+        //     return $job->employer->user_id === strval($user->id);
+        // });
     }
 }
