@@ -63,7 +63,7 @@ class JobController extends Controller
                 'salary'=>request('salary'),
             ]);
 
-            return redirect("/jobs/".$id);
+            return redirect("/jobs");
 
     }
 
