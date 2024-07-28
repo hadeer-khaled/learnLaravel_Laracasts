@@ -18,7 +18,8 @@ class EmployerFactory extends Factory
     public function definition(): array
     {
         return [
-            'name'=>$this->faker->name ,
+            // 'name'=>$this->faker->name ,
+            'name'=>"hadeeer" ,
             'user_id'=> User::factory()
         ];
     }
